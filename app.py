@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from GUI.welcome_display import LoginDisplay
+from GUI.welcome_display import WelcomeDisplay
 
 # GUI App Window
 class App(ctk.CTk):
@@ -16,8 +16,8 @@ class App(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
 
 # Display login window
-        self.login_display = LoginDisplay(self)
-        self.login_display.grid(row=0, column=0, sticky="nsew")
+        self.welcome_display = WelcomeDisplay(self)
+        self.welcome_display.grid(row=0, column=0, sticky="nsew")
 
 
 if __name__ == "__main__":

@@ -2,9 +2,10 @@ import customtkinter as ctk
 from user_auth import User
 
 # User auth GUI: welcome screen, login/signup
-class LoginDisplay(ctk.CTkFrame):
+class WelcomeDisplay(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        self.app = None # set the controller
 
         self.configure(width=600, height=400)
 
@@ -31,6 +32,9 @@ class LoginDisplay(ctk.CTkFrame):
 
 # User instance to handle login and signup GUI
         self.user = User("", "")
+
+    def set_controller(self, app):
+        self.app = app
 
     def button_login(self):
    #     self.user.login()
