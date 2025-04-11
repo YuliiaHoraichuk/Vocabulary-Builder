@@ -14,4 +14,4 @@ class LoginDisplay(ctk.CTkFrame):
         self.username_label = ctk.CTkLabel(self, text="Enter your username:")
 
     def set_controller(self, controller):
-        self.controller = controller
+        self.controller = controller # set the controller
