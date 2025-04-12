@@ -25,13 +25,19 @@ class LoginDisplay(ctk.CTkFrame):
         self.password_input = ctk.CTkEntry(self) # input
         self.password_input.grid(row=2, column=1, padx=(0,100), pady=10, sticky="ew")
 
-# Sign In
-        self.sign_in_button = ctk.CTkButton(self, text="Sign In")
+# Button - Sign In
+        self.sign_in_button = ctk.CTkButton(self, text="Sign In", command=self.on_login)
         self.sign_in_button.grid(row=3, column=0, padx=(120,0), pady=30, sticky="nsew")
 
-# Go back to the welcome window
+# Button - Go back to the welcome window
         self.go_back_button = ctk.CTkButton(self, text="Back")
         self.go_back_button.grid(row=3, column=1, padx=(60,120), pady=30, sticky="nsew")
 
     def set_controller(self, controller):
         self.controller = controller # set the controller
+
+# Collect username and password
+    def on_login(self):
+        username = self.username_input.get()
+        password = self.password_input.get()
+        self.controller.handle_login(username, password)

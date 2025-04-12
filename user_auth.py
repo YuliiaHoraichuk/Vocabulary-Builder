@@ -1,23 +1,19 @@
 import hashlib
 import csv
-import customtkinter as ctk
 
 # User class to handle user data(username/pass/points/level) and actions (login/signup)
 class User:
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
+    def __init__(self):
+        self.is_logged_in = False
+        self.current_user = None
 
-    def login(self):
-        username = input("Enter username: ")
-        password = input("Enter password: ")
-        with open("user_data", "a") as file:
-            if username == self.username and password == self.password:
-                print("Login successful")
+    def validate_login(self, username, password):
+        return True # implement later
+        #with open("user_data", "a") as file:
+        #    if username == self.username and password == self.password:
+        #        print("Login successful")
 
-    def signup(self):
-        self.username = input("Create a username: ")
-        self.password = input("Create a password: ")
+    def signup(self, username, password):
         pass_match = input("Enter a password again: ")
 
         if self.password == pass_match:
