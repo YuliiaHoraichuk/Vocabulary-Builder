@@ -34,7 +34,7 @@ class App(ctk.CTk):
             self.current_window.destroy() # destroy current window to avoid multiple windows being open simultaneously
 
         self.current_window = LoginDisplay(self)
-        self.current_window.set_controller(self) # set App as controller (MCV pattern)
+        self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 
 # Run tkinter loop

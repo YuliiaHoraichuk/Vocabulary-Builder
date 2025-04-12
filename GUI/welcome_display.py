@@ -6,7 +6,7 @@ class WelcomeDisplay(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         self.controller = None # set the controller
-        self.user = User("", "")  # User instance to handle login and signup GUI
+        #self.user = User("", "")  # user instance to handle login and signup GUI
 
 # Divide the window into 2 columns; allows resizing the columns and centering the buttons
         self.grid_columnconfigure(0, weight=1)
@@ -33,4 +33,5 @@ class WelcomeDisplay(ctk.CTkFrame):
         self.controller.load_login_display() # On click switch to login_display window
 
     def button_signup(self):
-        self.user.signup() # do later
+        return True
+        #self.user.signup() # do later
