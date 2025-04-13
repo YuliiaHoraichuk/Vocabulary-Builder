@@ -44,7 +44,9 @@ class App(ctk.CTk):
         if self.user.validate_login(username, password):
             print("success") # proof of concept - write actual logic later
         else:
-            print("error")
+            print('error')
+            #self.showerror("Incorrect username or password") # seems that showerror is tk method, doesn't exist in ctk
+            # Basically when my dummy vaidate_login() returns True, handle_login() prints "success"
 
 
 # Run tkinter loop

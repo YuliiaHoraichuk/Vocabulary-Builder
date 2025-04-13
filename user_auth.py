@@ -7,11 +7,14 @@ class User:
         self.is_logged_in = False
         self.current_user = None
 
-    def validate_login(self, username, password):
-        return True # implement later
-        #with open("user_data", "a") as file:
-        #    if username == self.username and password == self.password:
-        #        print("Login successful")
+    def validate_login(self, username_input, password_input):
+        with open("user_data", "r") as file:
+            for row in csv.reader(file, delimiter="\t"): # access to csv is working
+                username_csv, password_csv = row # username and password stored in user_data.csv
+                if username_input == username_csv and password_input == password_csv:
+                    #print(username, password)
+                    return True
+        return False
 
     def signup(self, username, password):
         pass_match = input("Enter a password again: ")
