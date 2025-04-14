@@ -19,29 +19,11 @@ class User:
     def signup(self, username, password):
         pass_match = input("Enter a password again: ")
 
-        if self.password == pass_match:
+        if password == pass_match:
             with open("user_data", "a") as file:
                 writer = csv.writer(file, delimiter = "\t", quotechar = "'", quoting = csv.QUOTE_MINIMAL)
-                writer.writerow([self.username, self.password])
+                writer.writerow([username, password])
         else:
             print("Passwords do not match")
-
-
-#implement later: check if the username exists in the database and the password is correct
-
-'''
-while 1:
-    choice = int(input("Enter your choice: "))
-    if choice == 1:
-        user = User("","")
-        user.signup()
-    elif choice == 2:
-        user = User("","")
-        user.login()
-    else:
-        break
-'''
-# TEMP! Store user data
-users = []
 
 

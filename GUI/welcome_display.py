@@ -15,7 +15,7 @@ class WelcomeDisplay(ctk.CTkFrame):
 # Use label for welcome text msg instead of textbox - better semantically
         self.welcome_message = ctk.CTkLabel(self, text="\nWelcome to Vocabulary Builder App! \nPlease log in or "
         "create a new account", font=("Arial", 20))
-        self.welcome_message.grid(row=0, column=0, columnspan=2, padx=20, pady=20, sticky="nsew") #append to the grid
+        self.welcome_message.grid(row=0, column=0, columnspan=2, padx=20, pady=20, sticky="nsew") #append to grid
         self.welcome_message.configure(anchor="center") # Center the label
 
 # Login button
