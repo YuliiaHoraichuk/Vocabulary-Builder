@@ -2,6 +2,7 @@ import customtkinter as ctk
 
 from GUI.login_display import LoginDisplay
 from GUI.welcome_display import WelcomeDisplay
+from GUI.menu_display import MenuDisplay
 from user_auth import User
 
 # GUI App Window
@@ -21,6 +22,8 @@ class App(ctk.CTk):
         self.current_window = None
         self.load_welcome_display() # load welcome_display when the app launches
 
+        self.username = None
+
 # Display welcome window
     def load_welcome_display(self):
         if self.current_window:
@@ -35,19 +38,28 @@ class App(ctk.CTk):
         if self.current_window:
             self.current_window.destroy() # destroy current window to avoid multiple windows being open simultaneously
 
-        self.current_window = LoginDisplay(self) # switch to login_display window
+        self.current_window = LoginDisplay(self) # switch to the login_display window
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 
 # Collects input from the View (login_display) and passes to the model (user_auth)
     def handle_login(self, username, password):
         if self.user.validate_login(username, password):
-            print("success") # proof of concept - write actual logic later
+            self.username = username # assign before calling load_menu_display(), otherwise username = None
+            self.load_menu_display() # if login is successful, display game menu
         else:
             print('error')
             #self.showerror("Incorrect username or password") # seems that showerror is tk method, doesn't exist in ctk
             # Basically when my dummy vaidate_login() returns True, handle_login() prints "success"
 
+# Display the menu
+    def load_menu_display(self):
+        if self.current_window:
+            self.current_window.destroy()
+
+        self.current_window = MenuDisplay(self) # switch to the menu_display window
+        self.current_window.set_controller(self) # set App as controller (MVC pattern)
+        self.current_window.grid(row=0, column=0, sticky="nsew")
 
 # Run tkinter loop
 if __name__ == "__main__":

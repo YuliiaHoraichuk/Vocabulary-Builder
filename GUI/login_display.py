@@ -41,3 +41,4 @@ class LoginDisplay(ctk.CTkFrame):
         username = self.username_input.get()
         password = self.password_input.get()
         self.controller.handle_login(username, password)
+
