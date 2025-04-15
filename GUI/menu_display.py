@@ -1,3 +1,4 @@
+# TO-DO: MAKE SELECT COLUMNS THE SAME WIDTH
 import customtkinter as ctk
 
 # Main menu: choose game/level/topic + display username/score
@@ -30,7 +31,7 @@ class MenuDisplay(ctk.CTkFrame):
 
 # Select topic
         self.select_topic = GameSettings(self, title="Select Topic:", values=["Topic 1", "Topic 2", "Topic 3"])
-        self.select_topic.grid(row=1, column=2, padx=10, pady=20, sticky="nsew")
+        self.select_topic.grid(row=1, column=2, padx=20, pady=20, sticky="nsew")
 
     def set_controller(self, controller):
         self.controller = controller # set the controller

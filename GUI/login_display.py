@@ -1,6 +1,6 @@
 import customtkinter as ctk
-from user_auth import User
 
+# View: Login Window
 class LoginDisplay(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)

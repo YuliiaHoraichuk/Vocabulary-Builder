@@ -33,5 +33,4 @@ class WelcomeDisplay(ctk.CTkFrame):
         self.controller.load_login_display() # On click switch to login_display window
 
     def display_signup(self):
-        return True
-        #self.user.signup() # do later
+        self.controller.load_signup_display()  # On click switch to signup_display window

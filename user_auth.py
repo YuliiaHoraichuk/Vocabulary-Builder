@@ -1,7 +1,7 @@
 import hashlib
 import csv
 
-# User class to handle user data(username/pass/points/level) and actions (login/signup)
+# Model: User class to handle user data(username/pass/points/level) and actions (login/signup)
 class User:
     def __init__(self):
         self.is_logged_in = False

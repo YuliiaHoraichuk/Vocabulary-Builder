@@ -1,7 +1,10 @@
+# TO-DO: Load display method can be rewritten as a reusable tk frame
+
 import customtkinter as ctk
 
-from GUI.login_display import LoginDisplay
 from GUI.welcome_display import WelcomeDisplay
+from GUI.login_display import LoginDisplay
+from GUI.signup_display import SignupDisplay
 from GUI.menu_display import MenuDisplay
 from user_auth import User
 
@@ -39,6 +42,15 @@ class App(ctk.CTk):
             self.current_window.destroy() # destroy current window to avoid multiple windows being open simultaneously
 
         self.current_window = LoginDisplay(self) # switch to the login_display window
+        self.current_window.set_controller(self) # set App as controller (MVC pattern)
+        self.current_window.grid(row=0, column=0, sticky="nsew")
+
+# Display Signup window
+    def load_signup_display(self):
+        if self.current_window:
+            self.current_window.destroy()  # destroy current window to avoid multiple windows being open simultaneously
+
+        self.current_window = SignupDisplay(self) # switch to signup_display window
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 
