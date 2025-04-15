@@ -48,9 +48,7 @@ class App(ctk.CTk):
             self.username = username # assign before calling load_menu_display(), otherwise username = None
             self.load_menu_display() # if login is successful, display game menu
         else:
-            print('error')
-            #self.showerror("Incorrect username or password") # seems that showerror is tk method, doesn't exist in ctk
-            # Basically when my dummy vaidate_login() returns True, handle_login() prints "success"
+            self.current_window.show_error_message()
 
 # Display the menu
     def load_menu_display(self):
