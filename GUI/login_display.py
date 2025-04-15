@@ -36,7 +36,7 @@ class LoginDisplay(ctk.CTkFrame):
         self.sign_in_button.grid(row=4, column=0, padx=(120,0), pady=30, sticky="nsew")
 
 # Button - Go back to the welcome window
-        self.go_back_button = ctk.CTkButton(self, text="Back")
+        self.go_back_button = ctk.CTkButton(self, text="Back", command=self.go_back)
         self.go_back_button.grid(row=4, column=1, padx=(60,120), pady=30, sticky="nsew")
 
     def set_controller(self, controller):
@@ -47,6 +47,10 @@ class LoginDisplay(ctk.CTkFrame):
         username = self.username_input.get()
         password = self.password_input.get()
         self.controller.handle_login(username, password)
+
+# Return to welcome window
+    def go_back(self):
+      self.controller.load_welcome_display()
 
 # Display error message when login credentials are incorrect
     def show_error_message(self):

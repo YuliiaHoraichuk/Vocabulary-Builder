@@ -20,13 +20,13 @@ class SignupDisplay(ctk.CTkFrame):
 
 # Username label and input
         self.username_label = ctk.CTkLabel(self, text="Username:", font=("Arial", 16))  # label
-        self.username_label.grid(row=2, column=0, padx=(100, 0), pady=10, sticky="w")
+        self.username_label.grid(row=2, column=0, padx=(100, 0), pady=10, sticky="ew")
         self.username_input = ctk.CTkEntry(self)  # input
         self.username_input.grid(row=2, column=1, padx=(0, 100), pady=10, sticky="ew")
 
 # Password label and input
         self.password_label = ctk.CTkLabel(self, text="Password:", font=("Arial", 16))  # label
-        self.password_label.grid(row=3, column=0, padx=(100, 0), pady=10, sticky="w")
+        self.password_label.grid(row=3, column=0, padx=(100, 0), pady=10, sticky="ew")
         self.password_input = ctk.CTkEntry(self)  # input
         self.password_input.grid(row=3, column=1, padx=(0, 100), pady=10, sticky="ew")
 
@@ -41,7 +41,7 @@ class SignupDisplay(ctk.CTkFrame):
         self.sign_up_button.grid(row=5, column=0, padx=(120,0), pady=30, sticky="nsew")
 
 # Button - Go back to the welcome window
-        self.go_back_button = ctk.CTkButton(self, text="Back")
+        self.go_back_button = ctk.CTkButton(self, text="Back", command=self.go_back)
         self.go_back_button.grid(row=5, column=1, padx=(60,120), pady=30, sticky="nsew")
 
     def set_controller(self, controller):
@@ -50,6 +50,10 @@ class SignupDisplay(ctk.CTkFrame):
 # Collect username and password
     def on_signup(self):
         return True # do something
+
+# Return to welcome window
+    def go_back(self):
+        self.controller.load_welcome_display()
 
 # Display error message when login credentials are incorrect
     def show_error_message(self, text):
