@@ -1,4 +1,6 @@
 # TO-DO: Reusable tk frame for signup/login display, if there's time
+# TO-TO: hide password input: **** not pass
+
 import customtkinter as ctk
 
 class SignupDisplay(ctk.CTkFrame):

@@ -62,9 +62,16 @@ class App(ctk.CTk):
         else:
             self.current_window.show_error_message()
 
+# If validation successful, load menu display, if not, display error
     def handle_signup(self, username, password, repeat_password):
-        val1, error = self.user.validate_signup(username, password, repeat_password)
-        print(val1, error)
+        # assign return values from validate_signup()
+        validation_success, error = self.user.validate_signup(username, password, repeat_password)
+
+        if validation_success:
+            self.username = username
+            self.load_menu_display()
+        else:
+            self.current_window.show_error_message(error)
 
 # Display the menu
     def load_menu_display(self):

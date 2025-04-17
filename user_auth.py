@@ -36,18 +36,18 @@ class User:
         # pass return values from validate_username() to variables
         username, username_error = self.validate_username(username_input)
         if not username:
-            print(username_error)
             return False, username_error
 
         #  pass return values from validate_password() to variables
         password, password_error = self.validate_password(password_input, repeat_password_input)
         if not password:
-            print(password_error)
             return False, password_error
 
 # Save new user credentials to the csv file
         with open("user_data", "a") as file:
             file.write(f"{username_input}\t{password_input}\n")
+
+        return True, 'validation successful' # for handle_signup to work correctly - return 2 values
 
 
 
