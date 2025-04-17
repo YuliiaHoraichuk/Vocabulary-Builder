@@ -7,23 +7,47 @@ class User:
         self.is_logged_in = False
         self.current_user = None
 
+# Validate login: check that the username and the password exists in the database
     def validate_login(self, username_input, password_input):
         with open("user_data", "r") as file:
-            for row in csv.reader(file, delimiter="\t"): # access to csv is working
+            for row in csv.reader(file, delimiter="\t"):
                 username_csv, password_csv = row # username and password stored in user_data.csv
                 if username_input == username_csv and password_input == password_csv:
-                    #print(username, password)
                     return True
         return False
 
-    def signup(self, username, password):
-        pass_match = input("Enter a password again: ")
+# Validate password: return (false, error) if doesn't validate; return (true, "") if validates
+    def validate_password(self, password_input, repeat_password_input):
+        if not password_input == repeat_password_input:
+            return False, "Passwords do not match"
+        if len(password_input) < 8:
+            return False, "Password must be at least 8 characters long"
+        return True, ""
 
-        if password == pass_match:
-            with open("user_data", "a") as file:
-                writer = csv.writer(file, delimiter = "\t", quotechar = "'", quoting = csv.QUOTE_MINIMAL)
-                writer.writerow([username, password])
-        else:
-            print("Passwords do not match")
+# Validate username: return (false, error) if username is taken; return (true, "") if validates
+    def validate_username(self, username_input):
+        with open("user_data", "r") as file:
+            for row in csv.reader(file, delimiter="\t"):
+                if username_input == row[0]:
+                    return False, "Username already exists"
+        return True, ""
+
+    def validate_signup(self, username_input, password_input, repeat_password_input):
+        # pass return values from validate_username() to variables
+        username, username_error = self.validate_username(username_input)
+        if not username:
+            print(username_error)
+            return False, username_error
+
+        #  pass return values from validate_password() to variables
+        password, password_error = self.validate_password(password_input, repeat_password_input)
+        if not password:
+            print(password_error)
+            return False, password_error
+
+# Save new user credentials to the csv file
+        with open("user_data", "a") as file:
+            file.write(f"{username_input}\t{password_input}\n")
+
 
 

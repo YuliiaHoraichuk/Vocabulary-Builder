@@ -62,6 +62,10 @@ class App(ctk.CTk):
         else:
             self.current_window.show_error_message()
 
+    def handle_signup(self, username, password, repeat_password):
+        val1, error = self.user.validate_signup(username, password, repeat_password)
+        print(val1, error)
+
 # Display the menu
     def load_menu_display(self):
         if self.current_window:

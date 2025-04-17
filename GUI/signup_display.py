@@ -49,7 +49,10 @@ class SignupDisplay(ctk.CTkFrame):
 
 # Collect username and password
     def on_signup(self):
-        return True # do something
+        username = self.username_input.get()
+        password = self.password_input.get()
+        repeat_password = self.repeat_password_input.get()
+        self.controller.handle_signup(username, password, repeat_password)
 
 # Return to welcome window
     def go_back(self):
