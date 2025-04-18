@@ -2,6 +2,7 @@
 
 import customtkinter as ctk
 
+from GUI.hangman_display import HangmanDisplay
 from GUI.welcome_display import WelcomeDisplay
 from GUI.login_display import LoginDisplay
 from GUI.signup_display import SignupDisplay
@@ -62,16 +63,17 @@ class App(ctk.CTk):
         else:
             self.current_window.show_error_message()
 
-# If validation successful, load menu display, if not, display error
+# Collect input from the View (signup_display) and pass to the Model (user_auth)
     def handle_signup(self, username, password, repeat_password):
         # assign return values from validate_signup()
         validation_success, error = self.user.validate_signup(username, password, repeat_password)
 
+# If the validation is successful, switch to the current user and load the menu
         if validation_success:
             self.username = username
             self.load_menu_display()
         else:
-            self.current_window.show_error_message(error)
+            self.current_window.show_error_message(error) # Display error if registration fails
 
 # Display the menu
     def load_menu_display(self):
@@ -79,6 +81,14 @@ class App(ctk.CTk):
             self.current_window.destroy()
 
         self.current_window = MenuDisplay(self) # switch to the menu_display window
+        self.current_window.set_controller(self) # set App as controller (MVC pattern)
+        self.current_window.grid(row=0, column=0, sticky="nsew")
+
+    def load_hangman_display(self):
+        if self.current_window:
+            self.current_window.destroy()
+
+        self.current_window = HangmanDisplay(self)
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 

@@ -1,5 +1,7 @@
 # TO-DO: MAKE SELECT COLUMNS THE SAME WIDTH
 import customtkinter as ctk
+from click import command
+
 
 # Main menu: choose game/level/topic + display username/score
 class MenuDisplay(ctk.CTkFrame):
@@ -38,10 +40,16 @@ class MenuDisplay(ctk.CTkFrame):
 
         self.welcome_user_message.configure(text=f"Welcome, {self.controller.username}!")
 
+# Set the controller for every child (otherwise controller = None)
+        self.select_game.set_controller(controller)
+        self.select_lvl.set_controller(controller)
+        self.select_topic.set_controller(controller)
+
 # Reusable Dynamic Frame: header + buttons
 class GameSettings(ctk.CTkFrame):
     def __init__(self, parent, title, values):
         super().__init__(parent)
+        self.controller = None  # set the controller
         self.values = values # list of button labels
         self.buttons = [] # store buttons
 
@@ -52,5 +60,16 @@ class GameSettings(ctk.CTkFrame):
         for i, value in enumerate(self.values):
             button = ctk.CTkButton(self, text=value, font=("Arial", 16))
             button.grid(row=i+1, column=0, padx=20, pady=20, sticky="nsew") # row=i+1 bc 1st row is occupied by header
-            self.buttons.append(button)
+            self.buttons.append((button, value))
 
+# Set the controller and configure button action
+    def set_controller(self, controller):
+        self.controller = controller # set the controller
+        for button, value in self.buttons:
+            button.configure(command=lambda x=value: self.on_click(x)) # lambda to bind on_click to the current button
+
+# Proof of concept Rework later: select game, level and topic
+    def on_click(self, value):
+        print(value)
+        if value == "Hangman":
+            self.controller.load_hangman_display()
