@@ -24,8 +24,9 @@ class App(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
 
         self.current_window = None
-        self.load_welcome_display() # load welcome_display when the app launches
-
+        #self.load_welcome_display() # load welcome_display when the app launches
+        # TEMP
+        self.load_hangman_display()
         self.username = None
 
 # Display welcome window
