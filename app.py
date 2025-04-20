@@ -15,6 +15,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.user = User()
+        self.hangman_game = HangmanGame("RABBIT") # hardcoded change later
 
 # Configure app window
         self.title("Vocabulary Builder")
@@ -95,7 +96,27 @@ class App(ctk.CTk):
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 
+# Pass logic from hangman_game to update hangman_display
     def play_hangman(self, char):
+        guess_correct = self.hangman_game.guess_char(char) # after every guess update View
+        self.current_window.keyboard.disable_button(char) # disable button
+
+        # If the guess is correct, reveal the letter in the charboxes widget
+        if guess_correct:
+            _, positions = guess_correct
+            self.current_window.guess_input.display_char(positions, char)
+
+        # If the guess is wrong, chances =- 1
+        else:
+            self.current_window.chances_left.configure(text=f"Chances left: {self.hangman_game.chances}")
+
+        if self.hangman_game.win():
+            self.current_window.chances_left.configure(text="You win!")
+            self.current_window.chances_left.configure(text_color="green")
+
+        elif self.hangman_game.lose():
+            self.current_window.chances_left.configure(text="You lose!")
+            self.current_window.chances_left.configure(text_color="red")
 
 # Run tkinter loop
 if __name__ == "__main__":
