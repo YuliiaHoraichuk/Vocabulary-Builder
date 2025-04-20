@@ -8,6 +8,7 @@ from GUI.login_display import LoginDisplay
 from GUI.signup_display import SignupDisplay
 from GUI.menu_display import MenuDisplay
 from user_auth import User
+from hangman_game import HangmanGame
 
 # GUI App Window
 class App(ctk.CTk):
@@ -85,6 +86,7 @@ class App(ctk.CTk):
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 
+# Load the hangman game display
     def load_hangman_display(self):
         if self.current_window:
             self.current_window.destroy()
@@ -92,6 +94,8 @@ class App(ctk.CTk):
         self.current_window = HangmanDisplay(self)
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
+
+    def play_hangman(self, char):
 
 # Run tkinter loop
 if __name__ == "__main__":

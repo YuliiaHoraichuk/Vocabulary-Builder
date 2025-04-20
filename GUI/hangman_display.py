@@ -19,6 +19,7 @@ class HangmanDisplay(ctk.CTkFrame):
 
     def set_controller(self, controller):
         self.controller = controller # set the controller
+        self.keyboard.set_controller(controller)
 
 class GuessBox(ctk.CTkFrame):
     def __init__(self, parent):
@@ -50,6 +51,13 @@ class Keyboard(ctk.CTkFrame):
 
         for row_index, row_keys in enumerate([row1, row2, row3]):
             for char_index, key in enumerate(row_keys):
-                button = ctk.CTkButton(self, text=key, width=30, height=40)
+                button = ctk.CTkButton(self, text=key, width=30, height=40, command=lambda x=key: self.on_click(x))
                 button.grid(row=row_index, column=char_index, padx=3, pady=3)
                 self.buttons[key] = button
+
+
+    def set_controller(self, controller):
+        self.controller = controller # set the controller
+
+    def on_click(self, button):
+        print(button)

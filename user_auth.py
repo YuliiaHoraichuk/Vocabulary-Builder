@@ -4,8 +4,8 @@ import csv
 # Model: User class to handle user data(username/pass/points/level) and actions (login/signup)
 class User:
     def __init__(self):
-        self.is_logged_in = False
-        self.current_user = None
+        self.is_logged_in = False # I don't think this attribute is ever used - check later
+        self.current_user = None # I don't think this attribute is ever used - check later
 
 # Validate login: check that the username and the password exists in the database
     def validate_login(self, username_input, password_input):

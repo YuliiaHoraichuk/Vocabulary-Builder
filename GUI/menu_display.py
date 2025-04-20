@@ -37,7 +37,6 @@ class MenuDisplay(ctk.CTkFrame):
 
     def set_controller(self, controller):
         self.controller = controller # set the controller
-
         self.welcome_user_message.configure(text=f"Welcome, {self.controller.username}!")
 
 # Set the controller for every child (otherwise controller = None)
