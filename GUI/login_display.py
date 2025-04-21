@@ -28,7 +28,7 @@ class LoginDisplay(ctk.CTkFrame):
 # Password label and input
         self.password_label = ctk.CTkLabel(self, text="Enter your password:", font=("Arial", 16)) # label
         self.password_label.grid(row=3, column=0, padx=(100,0), pady=10, sticky="w")
-        self.password_input = ctk.CTkEntry(self) # input
+        self.password_input = ctk.CTkEntry(self, show="*") # input, hide password
         self.password_input.grid(row=3, column=1, padx=(0,100), pady=10, sticky="ew")
 
 # Button - Sign In

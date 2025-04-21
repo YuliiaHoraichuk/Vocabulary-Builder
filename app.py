@@ -1,7 +1,4 @@
-# TO-DO: Load display method can be rewritten as a reusable tk frame
-
 import customtkinter as ctk
-
 from GUI.hangman_display import HangmanDisplay
 from GUI.welcome_display import WelcomeDisplay
 from GUI.login_display import LoginDisplay
@@ -9,26 +6,32 @@ from GUI.signup_display import SignupDisplay
 from GUI.menu_display import MenuDisplay
 from user_auth import User
 from hangman_game import HangmanGame
+from select_game_options import get_word
+from match_words_game import MatchWordsGame
+from match_words_display import MatchWordsDisplay
 
 # GUI App Window
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.user = User()
+        self.menu_display = MenuDisplay(self)
+        #self.menu_display.set_controller(self)
         self.hangman_game = HangmanGame("RABBIT") # hardcoded change later
 
 # Configure app window
         self.title("Vocabulary Builder")
-        self.geometry("600x400")
+        self.geometry("650x450")
         self.resizable(False, False) #disable window resizing
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
         self.current_window = None
-        #self.load_welcome_display() # load welcome_display when the app launches
+        self.load_welcome_display() # load welcome_display when the app launches
         # TEMP
-        self.load_hangman_display()
+        #self.load_menu_display()
+        #self.load_hangman_display()
         self.username = None
 
 # Display welcome window
@@ -87,24 +90,49 @@ class App(ctk.CTk):
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 
+# Launch the selected game
+    def launch_game(self, game, level, topic):
+        word = get_word(level, topic)
+        print(f"DEBUG: Getting word for level='{level}', topic='{topic}'")
+# Hangman
+        if game.lower() == "hangman":
+            self.hangman_game = HangmanGame(word)
+            self.load_hangman_display()
+# Match Words
+        elif game.lower() == "match words":
+            self.match_game = MatchWordsGame(level, topic)
+            self.load_match_display()
+
 # Load the hangman game display
     def load_hangman_display(self):
         if self.current_window:
             self.current_window.destroy()
 
-        self.current_window = HangmanDisplay(self)
+        self.current_window = HangmanDisplay(self, self.hangman_game.word)
         self.current_window.set_controller(self) # set App as controller (MVC pattern)
+        self.current_window.grid(row=0, column=0, sticky="nsew")
+        self.current_window.chances_left.configure(text=f"Chances left: {self.hangman_game.chances}")
+
+# Load match words display
+    def load_match_display(self):
+        if self.current_window:
+            self.current_window.destroy()
+
+        self.current_window = MatchWordsDisplay(self, self.match_game.word_pairs)
+        self.current_window.set_controller(self)
         self.current_window.grid(row=0, column=0, sticky="nsew")
 
 # Pass logic from hangman_game to update hangman_display
     def play_hangman(self, char):
         guess_correct = self.hangman_game.guess_char(char) # after every guess update View
         self.current_window.keyboard.disable_button(char) # disable button
+        self.current_window.chances_left.configure(text=f"Chances left: {self.hangman_game.chances}")
 
         # If the guess is correct, reveal the letter in the charboxes widget
         if guess_correct:
             _, positions = guess_correct
             self.current_window.guess_input.display_char(positions, char)
+            self.current_window.chances_left.configure(text=f"Chances left: {self.hangman_game.chances}")
 
         # If the guess is wrong, chances =- 1
         else:

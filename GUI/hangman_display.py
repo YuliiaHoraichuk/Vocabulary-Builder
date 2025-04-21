@@ -1,7 +1,7 @@
 import customtkinter as ctk
 
 class HangmanDisplay(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, word):
         super().__init__(parent)
         self.controller = None # set the controller
 
@@ -9,15 +9,15 @@ class HangmanDisplay(ctk.CTkFrame):
         self.grid_rowconfigure(0, weight=1)
 
 # Display status: chances left, win or lose
-        self.chances_left = ctk.CTkLabel(self, text="Chances left: ")
+        self.chances_left = ctk.CTkLabel(self, text="Chances left: ", font=("Arial", 20))
         self.chances_left.grid(row=0, column=0, padx=40, pady=0, sticky="nsew")
 
 # Go back to the main menu
-        self.go_back_button = ctk.CTkButton(self, text="Game Menu", command=self.go_back)
-        self.go_back_button.grid(row=0, column=1, padx=(10, 10), pady=0, sticky="ew")
+        self.go_back_button = ctk.CTkButton(self, text="Game Menu", font=("Arial", 18), command=self.go_back)
+        self.go_back_button.grid(row=0, column=1, padx=(10, 40), pady=0, sticky="ew")
 
 # Character labels - letter revealed if it's in the word
-        self.guess_input = GuessBox(self)
+        self.guess_input = GuessBox(self, word)
         self.guess_input.grid(row=1, column=0, columnspan=2, padx=40, pady=20, sticky="nsew")
 
 # Keyboard - press key to guess a letter
@@ -33,10 +33,10 @@ class HangmanDisplay(ctk.CTkFrame):
         self.controller.load_menu_display()
 
 class GuessBox(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, word):
         super().__init__(parent)
 
-        self.word = "rabbit" # TEMP
+        self.word = word.upper()
         self.charboxes = [] # store char labels
         charbox_width = 30
         padding = 3
