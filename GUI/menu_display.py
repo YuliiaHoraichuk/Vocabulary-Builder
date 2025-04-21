@@ -15,10 +15,6 @@ class MenuDisplay(ctk.CTkFrame):
         self.welcome_user_message = ctk.CTkLabel(self, font=("Arial", 18))
         self.welcome_user_message.grid(row=0, column=0, padx=40, pady=10, sticky="nw")
 
-# Display score
-        self.score = ctk.CTkLabel(self, text="Score: 0", font=("Arial", 18)) # ADD ACTUAL SCORE LATER
-        self.score.grid(row=0, column=1, padx=20, pady=10, sticky="ne")
-
 # Warning message - normally hidden
         self.warning_message = ctk.CTkLabel(self, text="Please select game, level, and topic.")
         self.warning_message.grid(row=1, column=0, columnspan=3)
